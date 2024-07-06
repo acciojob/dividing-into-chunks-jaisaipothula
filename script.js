@@ -1,8 +1,21 @@
-const arr = [1, 2, 3, 4, 1, 0, 2, 2];
+function splitArrayIntoSubarrays(arr, n) {
+    const result = [];
+    let currentSubarray = [];
 
-const divide = (arr, n) => {
-  // Write your code here
-};
+    for (let i = 0; i < arr.length; i++) {
+        // If adding arr[i] to currentSubarray exceeds n, push currentSubarray to result and start a new subarray
+        if (currentSubarray.reduce((acc, val) => acc + val, 0) + arr[i] > n) {
+            result.push(currentSubarray);
+            currentSubarray = [];
+        }
+        // Add arr[i] to currentSubarray
+        currentSubarray.push(arr[i]);
+    }
 
-const n = prompt("Enter n: ");
-alert(JSON.stringify(divide(arr, n)));
+    // Push the last remaining subarray to result
+    if (currentSubarray.length > 0) {
+        result.push(currentSubarray);
+    }
+
+    return result;
+}
